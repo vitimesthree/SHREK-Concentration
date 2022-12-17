@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/shrek.mp3-a207bf25ca09ebf6090ca6d1b87f32ec.mp3str"
+
+[deps]
+
+source_file="res://audio/shrek.mp3"
+dest_files=[ "res://.import/shrek.mp3-a207bf25ca09ebf6090ca6d1b87f32ec.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

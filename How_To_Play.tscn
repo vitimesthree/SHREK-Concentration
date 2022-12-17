@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://audio/shrek.mp3" type="AudioStream" id=1]
+[ext_resource path="res://How_To_Play.gd" type="Script" id=2]
+[ext_resource path="res://game.theme" type="Theme" id=3]
+
+[node name="How To Play" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_left = 88.0
+margin_top = 64.0
+margin_right = 408.0
+margin_bottom = 284.0
+rect_scale = Vector2( 2, 2 )
+bbcode_enabled = true
+bbcode_text = "[center]
+Shrek wants to challenge you to the great ogre staring contest. Can you beat his concentration and come out on top?
+
+[b]HOW TO PLAY[/b]
+
+Keep eye contact with Shrek for as long as you can. Things might start easy, but Shrek will start getting more perceptive after a few seconds. Don't make any sudden movements, Shrek will call you out for cheating!
+[/center]"
+text = "
+Shrek wants to challenge you to the great ogre staring contest. Can you beat his concentration and come out on top?
+
+HOW TO PLAY
+
+Keep eye contact with Shrek for as long as you can. Things might start easy, but Shrek will start getting more perceptive after a few seconds. Don't make any sudden movements, Shrek will call you out for cheating!
+"
+
+[node name="back" type="Button" parent="."]
+margin_left = 256.0
+margin_top = 504.0
+margin_right = 335.0
+margin_bottom = 524.0
+rect_scale = Vector2( 3.5, 4 )
+theme = ExtResource( 3 )
+text = "Understood."
+
+[node name="shrek" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+volume_db = 1.0
+
+[connection signal="pressed" from="back" to="." method="_on_back_pressed"]
