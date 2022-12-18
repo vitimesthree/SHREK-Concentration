@@ -166,7 +166,7 @@ wait_time = 5.0
 one_shot = true
 
 [node name="gametimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 120.0
 one_shot = true
 
 [connection signal="pressed" from="ui/confirm" to="." method="_on_confirm_pressed"]
