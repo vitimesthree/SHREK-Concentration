@@ -1,23 +1,31 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://audio/tone.wav" type="AudioStream" id=1]
-[ext_resource path="res://images/shrek1.png" type="Texture" id=2]
+[ext_resource path="res://images/shrek2.jpg" type="Texture" id=2]
 [ext_resource path="res://audio/laugh.mp3" type="AudioStream" id=3]
-[ext_resource path="res://images/shrek2.png" type="Texture" id=4]
+[ext_resource path="res://images/shrek1.jpg" type="Texture" id=4]
 [ext_resource path="res://Main.gd" type="Script" id=5]
+[ext_resource path="res://images/shrek3.jpg" type="Texture" id=6]
 [ext_resource path="res://audio/roar.mp3" type="AudioStream" id=7]
 [ext_resource path="res://game.theme" type="Theme" id=8]
+[ext_resource path="res://audio/victory.mp3" type="AudioStream" id=9]
+[ext_resource path="res://audio/clapping.mp3" type="AudioStream" id=10]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 4 ) ],
+"frames": [ ExtResource( 2 ) ],
 "loop": true,
 "name": "evil",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ) ],
+"frames": [ ExtResource( 4 ) ],
 "loop": true,
 "name": "normal",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "win",
 "speed": 5.0
 } ]
 
@@ -32,20 +40,8 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="laugh" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 3 )
-volume_db = -3.0
-
-[node name="tone" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 1 )
-volume_db = -80.0
-pitch_scale = 7.0
-
-[node name="roar" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 7 )
-volume_db = 3.0
-
 [node name="ui" type="Node2D" parent="."]
+visible = false
 
 [node name="title" type="RichTextLabel" parent="ui"]
 margin_top = 32.0
@@ -75,21 +71,108 @@ rect_scale = Vector2( 3.5, 4 )
 theme = ExtResource( 8 )
 text = "How To Play?"
 
-[node name="mousetimer" type="Timer" parent="."]
-wait_time = 5.0
-one_shot = true
-
-[node name="blinked" type="Button" parent="."]
+[node name="ui_win" type="Node2D" parent="."]
 visible = false
+
+[node name="win" type="RichTextLabel" parent="ui_win"]
+margin_left = 24.0
+margin_top = 32.0
+margin_right = 146.0
+margin_bottom = 53.0
+rect_scale = Vector2( 6, 7 )
+theme = ExtResource( 8 )
+custom_colors/default_color = Color( 1, 0.901961, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "[right]YOU WON![/right]"
+text = "YOU WON!"
+
+[node name="label" type="RichTextLabel" parent="ui_win"]
+margin_left = 336.0
+margin_top = 448.0
+margin_right = 452.0
+margin_bottom = 469.0
+rect_scale = Vector2( 3.5, 4 )
+bbcode_enabled = true
+bbcode_text = "[right]your time is:[/right]"
+text = "your time is:"
+
+[node name="restart" type="Button" parent="ui_win"]
 margin_right = 229.0
 margin_bottom = 150.0
 rect_scale = Vector2( 3.5, 4 )
 theme = ExtResource( 8 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+
+[node name="ui_lose" type="Node2D" parent="."]
+visible = false
+
+[node name="blinked" type="Button" parent="ui_lose"]
+margin_right = 229.0
+margin_bottom = 150.0
+rect_scale = Vector2( 3.5, 4 )
+theme = ExtResource( 8 )
+custom_colors/font_color_disabled = Color( 0.854902, 0, 0, 1 )
+custom_colors/font_color_focus = Color( 0.854902, 0, 0, 1 )
+custom_colors/font_color = Color( 0.854902, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0.854902, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0.854902, 0, 0, 1 )
 text = "You blinked!"
+
+[node name="label" type="RichTextLabel" parent="ui_lose"]
+margin_left = 336.0
+margin_top = 448.0
+margin_right = 452.0
+margin_bottom = 469.0
+rect_scale = Vector2( 3.5, 4 )
+custom_colors/default_color = Color( 0.854902, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "[right]your time was:[/right]"
+text = "your time was:"
+
+[node name="time" type="Label" parent="."]
+visible = false
+margin_left = 368.0
+margin_top = 528.0
+margin_right = 472.0
+margin_bottom = 542.0
+rect_scale = Vector2( 3.5, 4 )
+text = "0"
+align = 2
+
+[node name="laugh" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -3.0
+
+[node name="roar" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = 6.0
+
+[node name="victory" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+
+[node name="clapping" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+
+[node name="tone" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+volume_db = -80.0
+pitch_scale = 7.0
+
+[node name="count" type="Timer" parent="."]
+
+[node name="mousetimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="gametimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
 
 [connection signal="pressed" from="ui/confirm" to="." method="_on_confirm_pressed"]
 [connection signal="pressed" from="ui/howtoplay" to="." method="_on_howtoplay_pressed"]
+[connection signal="pressed" from="ui_win/restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="ui_lose/blinked" to="." method="_on_blinked_pressed"]
+[connection signal="timeout" from="count" to="." method="_on_count_timeout"]
 [connection signal="timeout" from="mousetimer" to="." method="_on_mousetimer_timeout"]
-[connection signal="pressed" from="blinked" to="." method="_on_blinked_pressed"]
+[connection signal="timeout" from="gametimer" to="." method="_on_gametimer_timeout"]

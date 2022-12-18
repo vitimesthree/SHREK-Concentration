@@ -31,9 +31,9 @@ Keep eye contact with Shrek for as long as you can. Things might start easy, but
 
 [node name="back" type="Button" parent="."]
 margin_left = 256.0
-margin_top = 504.0
+margin_top = 497.0
 margin_right = 335.0
-margin_bottom = 524.0
+margin_bottom = 517.0
 rect_scale = Vector2( 3.5, 4 )
 theme = ExtResource( 3 )
 text = "Understood."

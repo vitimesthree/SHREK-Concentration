@@ -11,8 +11,12 @@ var brightness = 1
 var _old_mouse = Vector2.ZERO
 var roar_playing = false
 
+var time_elapsed = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	randomize()
+	
 	$background.modulate = dark
 	$laugh.play()
 	$ui.show()
@@ -21,9 +25,7 @@ func _ready():
 func _process(delta):
 	if get_global_mouse_position() != _old_mouse:
 		if (check_mouse == true):
-			playing = false
-			check_mouse = false
-			$tone.stop()
+			end_game()
 			
 			$roar.play()
 			$background.modulate = bright
@@ -39,29 +41,82 @@ func _process(delta):
 		if (roar_playing == true):
 			roar_playing = false
 			$background.modulate = dark
-			$blinked.show()
+			$ui_lose.show()
+			calculate_time()
 
 func _on_confirm_pressed():
-	$background.modulate = bright
+	start_game()
+	
 	$ui.hide()
-	
-	playing = true
-	$tone.play()
-	
-	$mousetimer.start()
+	$background.modulate = bright
 
 func increase_tone(delta):
-	$tone.volume_db += 3 * delta
+	$tone.volume_db += 1 * delta
 	brightness -= 0.01 * delta
 	$background.modulate = Color(1,brightness,brightness)
 
 func _on_mousetimer_timeout():
 	check_mouse = true
-
+	
+func _on_gametimer_timeout():
+	end_game()
+	calculate_time()
+	
+	$ui_win.show()
+	$background.modulate = bright
+	$background.animation = 'win'
+	
+	$victory.play()
+	$clapping.play()
 
 func _on_blinked_pressed():
-	get_tree().reload_current_scene()
-
+	restart_game()
+	
+func _on_restart_pressed():
+	restart_game()
 
 func _on_howtoplay_pressed():
-	get_tree().change_scene('res://How_To_Play.tscn')
+	var _howtoplay = get_tree().change_scene('res://How_To_Play.tscn')
+
+# Use inside script
+func start_game():
+	playing = true
+	$tone.play()
+	
+	$count.start()
+	set_times()
+
+func end_game():
+	$tone.stop()
+	$count.stop()
+	playing = false
+	$gametimer.stop()
+	check_mouse = false
+
+func restart_game():
+	var _blinked = get_tree().reload_current_scene()
+	
+func _on_count_timeout():
+	time_elapsed += 1
+	
+func set_times():
+	var t = 0
+	var mint = t * 0.5
+	var maxt = t * 1.5
+	
+	t = $mousetimer.wait_time
+	mint = t * 0.6
+	maxt = t * 1.4
+	$mousetimer.wait_time = rand_range(mint, maxt)
+	$mousetimer.start()
+	
+	t = $gametimer.wait_time
+	mint = t * 0.5
+	maxt = t * 1.5
+	$gametimer.wait_time = rand_range(mint, maxt)
+	$gametimer.wait_time += $mousetimer.wait_time
+	$gametimer.start()
+
+func calculate_time():
+	$time.show()
+	$time.text = str(time_elapsed) + ' seconds'

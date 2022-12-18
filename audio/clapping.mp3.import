@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/clapping.mp3-32c203183ead227c86114bd3f301b5ae.mp3str"
+
+[deps]
+
+source_file="res://audio/clapping.mp3"
+dest_files=[ "res://.import/clapping.mp3-32c203183ead227c86114bd3f301b5ae.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

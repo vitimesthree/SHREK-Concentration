@@ -9,4 +9,4 @@ func _process(_delta):
 	pass
 
 func _on_back_pressed():
-	get_tree().change_scene("res://Main.tscn")
+	var _main = get_tree().change_scene("res://Main.tscn")

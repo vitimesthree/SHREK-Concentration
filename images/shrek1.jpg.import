@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/shrek2.png-a00e34269877427d545bf2592a52fa57.stex"
+path="res://.import/shrek1.jpg-59c198c6488403437579814bf9d0da84.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/shrek2.png"
-dest_files=[ "res://.import/shrek2.png-a00e34269877427d545bf2592a52fa57.stex" ]
+source_file="res://images/shrek1.jpg"
+dest_files=[ "res://.import/shrek1.jpg-59c198c6488403437579814bf9d0da84.stex" ]
 
 [params]
 
